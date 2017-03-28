@@ -4,11 +4,10 @@ namespace AuditLog\Model\Behavior;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 use Cake\Utility\Inflector;
-use Cake\Utility\Hash;
+
 /**
  * Auditable behavior
  */
@@ -23,7 +22,7 @@ class AuditableBehavior extends Behavior
     protected $_defaultConfig = [
         'on' => ['delete', 'create', 'update'],
         'ignore' => ['created', 'updated', 'modified'],
-        'habtm'  => [],
+        'habtm' => [],
         'json_object' => true
     ];
 
@@ -60,11 +59,11 @@ class AuditableBehavior extends Behavior
 
             $association = $this->_table->association($modelName);
 
-            if ( !$association instanceof  \Cake\ORM\Association\BelongsToMany ) {
+            if (!$association instanceof \Cake\ORM\Association\BelongsToMany) {
                 continue;
             }
 
-            if ( $this->_table->{$modelName}->hasBehavior('Auditable') ) {
+            if ($this->_table->{$modelName}->hasBehavior('Auditable')) {
                 unset($habtm[$index]);
             }
         }
@@ -74,7 +73,7 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a save() operation.
      *
-     * @param  Event  $event  Event
+     * @param  Event $event Event
      * @param  Entity $entity Entity to save
      *
      * @return null
@@ -85,7 +84,7 @@ class AuditableBehavior extends Behavior
             return;
         }
 
-        if ( !$entity->isNew() ) {
+        if (!$entity->isNew()) {
             $original = $this->_getModelData($entity);
             $this->_original = $original;
         }
@@ -94,7 +93,7 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a delete() operation.
      *
-     * @param  Event  $event  Event
+     * @param  Event $event Event
      * @param  Entity $entity Entity to save
      *
      * @return  null
@@ -113,7 +112,7 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a save operation completes.
      *
-     * @param  Event  $event  Event
+     * @param  Event $event Event
      * @param  Entity $entity Entity to save
      *
      * @return  void
@@ -171,14 +170,14 @@ class AuditableBehavior extends Behavior
                 continue;
             }
 
-            if ( is_object($value) && $this->_original[$property] == $value) {
+            if (is_object($value) && $this->_original[$property] == $value) {
                 continue;
             }
 
             $updates[] = [
                 'property_name' => $property,
-                'old_value'     => $this->_original[$property],
-                'new_value'     => $value
+                'old_value' => $this->_original[$property],
+                'new_value' => $value
             ];
         }
 
@@ -186,7 +185,7 @@ class AuditableBehavior extends Behavior
         if ($entity->isNew() || count($updates)) {
             $audit = $Audits->newEntity($data);
             $audit = $Audits->save($audit);
-            if ( !$audit || !empty($audit->errors()) || empty($audit->id) ) {
+            if (!$audit || !empty($audit->errors()) || empty($audit->id)) {
                 throw new \UnexpectedValueException(
                     'Error saving audit ', print_r($audit, true)
                 );
@@ -210,7 +209,7 @@ class AuditableBehavior extends Behavior
 
             $delta = $Audits->AuditDeltas->newEntity($delta);
             $delta = $Audits->AuditDeltas->save($delta);
-            if ( !$delta || !empty($delta->errors()) || empty($delta->id) ) {
+            if (!$delta || !empty($delta->errors()) || empty($delta->id)) {
                 throw new \UnexpectedValueException(
                     'Error saving audit delta for ' . print_r($delta, true)
                 );
@@ -233,7 +232,7 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a model is deleted.
      *
-     * @param  Event  $event  Event
+     * @param  Event $event Event
      * @param  Entity $entity Entity to save
      *
      * @return  null
@@ -248,7 +247,7 @@ class AuditableBehavior extends Behavior
         $source = $this->_getSource();
         $audit = $this->_original;
         $alias = $this->_table->alias();
-        $data  = [
+        $data = [
             'event' => 'DELETE',
             'model' => $alias,
             'entity_id' => $entity->id,
@@ -328,20 +327,20 @@ class AuditableBehavior extends Behavior
         $alias = $this->_table->alias();
         $primaryKey = (array)$this->_table->primaryKey();
 
-        if ( empty($primaryKey) ) {
+        if (empty($primaryKey)) {
             throw new \UnexpectedValueException(
                 'Invalid primary key for ' . $this->_table->alias()
             );
         }
 
-        foreach ($primaryKey as $key ) {
+        foreach ($primaryKey as $key) {
             $conditions[$alias . '.' . $key] = $entity->$key;
         }
 
         $query = $this->_table->find('all', [
-            'conditions'    => $conditions,
+            'conditions' => $conditions,
         ]);
-        if ( !empty($habtm) ) {
+        if (!empty($habtm)) {
             $query->contain(array_values($habtm));
         }
 
@@ -351,7 +350,7 @@ class AuditableBehavior extends Behavior
 
         foreach ($habtm as $habtmModel) {
             $association = $this->_table->association($habtmModel);
-            if ( !($association instanceof  \Cake\ORM\Association\BelongsToMany) ) {
+            if (!($association instanceof \Cake\ORM\Association\BelongsToMany)) {
                 continue;
             }
             $name = Inflector::underscore($habtmModel);
@@ -361,11 +360,12 @@ class AuditableBehavior extends Behavior
             }
 
             $joinData = [];
-            foreach ( $data[$name] as $info ) {
+            foreach ($data[$name] as $info) {
                 $joinData[$info['id']] = $info['_joinData'];
             }
             $audit_data[$name] = $joinData;
         }
         return $audit_data;
     }
+
 }

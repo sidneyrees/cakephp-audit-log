@@ -12,6 +12,13 @@ class AuditsTableTest extends TestCase
 {
 
     /**
+     * Test subject
+     *
+     * @var \AuditLog\Model\Table\AuditsTable
+     */
+    public $Audits;
+
+    /**
      * Fixtures
      *
      * @var array
@@ -56,21 +63,11 @@ class AuditsTableTest extends TestCase
     }
 
     /**
-     * Test validationDefault method
+     * Test setupSearchPlugin method
      *
      * @return void
      */
-    public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
+    public function testSetupSearchPlugin()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

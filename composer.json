@@ -34,7 +34,7 @@
     "php": ">=5.4.16",
     "cakephp/cakephp": "~3.3",
     "friendsofcake/search": "^2.3",
-    "phpspec/php-diff": "dev-master"
+    "phpspec/php-diff": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "*"

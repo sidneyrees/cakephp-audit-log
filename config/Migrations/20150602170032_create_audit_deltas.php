@@ -1,5 +1,5 @@
 <?php
-use Phinx\Migration\AbstractMigration;
+use Migrations\AbstractMigration;
 
 class CreateAuditDeltas extends AbstractMigration
 {

@@ -25,10 +25,6 @@ class TagsFixture extends TestFixture
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'title' => ['type' => 'unique', 'columns' => ['title'], 'length' => []],
         ],
-        '_options' => [
-            'engine' => 'InnoDB',
-            'collation' => 'latin1_swedish_ci'
-        ],
     ];
     // @codingStandardsIgnoreEnd
 

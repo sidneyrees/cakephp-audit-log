@@ -22,10 +22,6 @@ class ArticlesTagsFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['article_id', 'tag_id'], 'length' => []],
         ],
-        '_options' => [
-            'engine' => 'InnoDB',
-            'collation' => 'latin1_swedish_ci'
-        ],
     ];
     // @codingStandardsIgnoreEnd
 

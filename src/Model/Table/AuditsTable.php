@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Model\Table;
 
 use Cake\ORM\Table;
@@ -40,23 +41,35 @@ class AuditsTable extends Table
 
         $this->hasMany('AuditDeltas', [
             'foreignKey' => 'audit_id',
-            'className' => 'AuditLog.AuditDeltas'
+            'className' => 'AuditLog.AuditDeltas',
         ]);
 
         $this->addBehavior('Search.Search');
 
         $this->searchManager()
-            ->add('event', 'Search.Value', [
-                'field' => 'id'
+            ->add('event', 'Search.Like', [
+                'before' => false,
+                'after' => false,
+                'fieldMode' => 'OR',
+                'comparison' => '=',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'field' => 'event',
             ])
-            ->add('model', 'Search.Value', [
-                'field' => 'id'
+            ->add('model', 'Search.Like', [
+                'before' => false,
+                'after' => false,
+                'fieldMode' => 'OR',
+                'comparison' => '=',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'field' => 'model',
             ])
             ->add('source_id', 'Search.Value', [
-                'field' => 'id'
+                'field' => 'source_id',
             ])
             ->add('entity_id', 'Search.Value', [
-                'field' => 'id'
+                'field' => 'entity_id',
             ]);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -58,7 +59,7 @@ class AuditsFixture extends TestFixture
             'created' => 1488907971,
             'delta_count' => 1,
             'source_ip' => 'Lorem ipsum dolor sit amet',
-            'source_url' => 'Lorem ipsum dolor sit amet'
+            'source_url' => 'Lorem ipsum dolor sit amet',
         ],
     ];
 }

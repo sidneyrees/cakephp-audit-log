@@ -4,6 +4,11 @@ namespace AuditLog\Model\Table;
 
 use Cake\Http\ServerRequestFactory;
 
+/**
+ * Trait CurrentUserTrait
+ *
+ * @package AuditLog\Model\Table
+ */
 trait CurrentUserTrait
 {
 
@@ -15,10 +20,11 @@ trait CurrentUserTrait
     public function currentUser()
     {
         $request = ServerRequestFactory::fromGlobals();
-        $session = $request->session();
+        $session = $request->getSession();
+
         return [
             'id' => $session->read('Auth.User.id'),
-            'ip' => $request->env('REMOTE_ADDR'),
+            'ip' => $request->clientIp(),
             'url' => $request->getRequestTarget(),
             'description' => $session->read('Auth.User.username'),
         ];

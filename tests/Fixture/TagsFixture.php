@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -38,7 +39,7 @@ class TagsFixture extends TestFixture
             'id' => 1,
             'title' => 'Top',
             'created' => '2015-06-02 11:42:35',
-            'modified' => '2015-06-02 11:42:35'
+            'modified' => '2015-06-02 11:42:35',
         ],
     ];
 }

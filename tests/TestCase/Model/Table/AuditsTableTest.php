@@ -2,6 +2,7 @@
 namespace AuditLog\Test\TestCase\Model\Table;
 
 use AuditLog\Model\Table\AuditsTable;
+use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -36,8 +37,9 @@ class AuditsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Audits') ? [] : ['className' => 'AuditLog\Model\Table\AuditsTable'];
-        $this->Audits = TableRegistry::get('Audits', $config);
+        $tableLocator = new TableLocator();
+        $config = $tableLocator->exists('Audits') ? [] : ['className' => 'AuditLog\Model\Table\AuditsTable'];
+        $this->Audits = $tableLocator->get('Audits', $config);
     }
 
     /**

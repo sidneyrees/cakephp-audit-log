@@ -3,7 +3,6 @@
 namespace AuditLog\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * AuditLog helper
@@ -47,6 +46,7 @@ class AuditLogHelper extends Helper
                     $this->outputValue($val)
                 );
             }
+
             return $output . '</dl>';
         }
         if ($value === NULL) {
@@ -71,8 +71,10 @@ class AuditLogHelper extends Helper
                     $this->outputValue($val)
                 );
             }
+
             return $output . '</dl>';
         }
+
         return sprintf(
             '<span title="%s">%s</span>',
             $value,
@@ -99,10 +101,11 @@ class AuditLogHelper extends Helper
         $config = [
             'ignoreNewLines' => true,
             'ignoreWhitespace' => true,
-            'ignoreCase' => true
+            'ignoreCase' => true,
         ];
 
         $diff = new \Diff((array)$old, (array)$new, $config);
+
         return $diff->render(new \Diff_Renderer_Html_SideBySide());
     }
 

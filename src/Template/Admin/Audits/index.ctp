@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \App\View\AppView $this
  * @var \AuditLog\Model\Table\AuditsTable[] $audits
  */
 ?>

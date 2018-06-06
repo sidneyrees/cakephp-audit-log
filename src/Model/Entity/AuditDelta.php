@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -28,6 +29,6 @@ class AuditDelta extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'id' => false,
     ];
 }

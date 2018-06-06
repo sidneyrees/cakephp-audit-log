@@ -36,7 +36,7 @@ class AuditsController extends AppController
     {
         $query = $this->Audits
             ->find('search', [
-                'search' => $this->request->getQueryParams(),
+                'search' => $this->getRequest()->getQueryParams(),
             ]);
 
         $audits = $this->paginate($query);

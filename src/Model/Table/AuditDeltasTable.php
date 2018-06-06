@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Model\Table;
 
 use Cake\ORM\Table;
@@ -39,13 +40,13 @@ class AuditDeltasTable extends Table
         $this->belongsTo('Audits', [
             'foreignKey' => 'audit_id',
             'joinType' => 'INNER',
-            'className' => 'AuditLog.Audits'
+            'className' => 'AuditLog.Audits',
         ]);
 
         $this->addBehavior('CounterCache', [
             'Audits' => [
-                'delta_count'
-            ]
+                'delta_count',
+            ],
         ]);
 
         $this->addBehavior('Search.Search');
@@ -57,8 +58,8 @@ class AuditDeltasTable extends Table
                 'fields' => [
                     'id' => 'source_id',
                     'label' => 'source_id',
-                    'value' => 'source_id'
-                ]
+                    'value' => 'source_id',
+                ],
             ])
             ->add('model', 'Search.Value', [
                 'field' => 'Audits.model',
@@ -66,8 +67,8 @@ class AuditDeltasTable extends Table
                 'fields' => [
                     'id' => 'model',
                     'label' => 'model',
-                    'value' => 'model'
-                ]
+                    'value' => 'model',
+                ],
             ])
             ->add('entity_id', 'Search.Value', [
                 'field' => 'Audits.entity_id',
@@ -75,17 +76,17 @@ class AuditDeltasTable extends Table
                 'fields' => [
                     'id' => 'entity_id',
                     'label' => 'entity_id',
-                    'value' => 'entity_id'
-                ]
+                    'value' => 'entity_id',
+                ],
             ])
             ->add('property_name', 'Search.Value', [
-                'field' => 'id'
+                'field' => 'id',
             ])
             ->add('old_value', 'Search.Value', [
-                'field' => 'id'
+                'field' => 'id',
             ])
             ->add('new_value', 'Search.Value', [
-                'field' => 'id'
+                'field' => 'id',
             ]);
     }
 

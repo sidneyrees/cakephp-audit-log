@@ -2,6 +2,7 @@
 namespace AuditLog\Test\TestCase\Model\Table;
 
 use AuditLog\Model\Table\AuditDeltasTable;
+use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -36,8 +37,9 @@ class AuditDeltasTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('AuditDeltas') ? [] : ['className' => 'AuditLog\Model\Table\AuditDeltasTable'];
-        $this->AuditDeltas = TableRegistry::get('AuditDeltas', $config);
+        $tableLocator = new TableLocator();
+        $config = $tableLocator->exists('AuditDeltas') ? [] : ['className' => 'AuditLog\Model\Table\AuditDeltasTable'];
+        $this->AuditDeltas = $tableLocator->get('AuditDeltas', $config);
     }
 
     /**

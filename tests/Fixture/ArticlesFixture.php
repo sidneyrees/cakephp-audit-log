@@ -1,4 +1,5 @@
 <?php
+
 namespace AuditLog\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -46,7 +47,7 @@ class ArticlesFixture extends TestFixture
             'body' => 'First Article Body',
             'published' => 'Y',
             'created' => '2007-03-18 10:39:23',
-            'updated' => '2007-03-18 10:41:31'
+            'updated' => '2007-03-18 10:41:31',
         ],
         [
             'user_id' => 3,
@@ -55,7 +56,7 @@ class ArticlesFixture extends TestFixture
             'body' => 'Second Article Body',
             'published' => 'Y',
             'created' => '2007-03-18 10:41:23',
-            'updated' => '2007-03-18 10:43:31'
+            'updated' => '2007-03-18 10:43:31',
         ],
         [
             'user_id' => 1,
@@ -64,7 +65,7 @@ class ArticlesFixture extends TestFixture
             'body' => 'Third Article Body',
             'published' => 'Y',
             'created' => '2007-03-18 10:43:23',
-            'updated' => '2007-03-18 10:45:31'
-        ]
+            'updated' => '2007-03-18 10:45:31',
+        ],
     ];
 }

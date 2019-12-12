@@ -4,6 +4,7 @@ namespace AuditLog\Model\Behavior;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Locator\TableLocator;
@@ -11,6 +12,8 @@ use Cake\Utility\Inflector;
 
 /**
  * Auditable behavior
+ *
+ * @package AuditLog\Behavior
  */
 class AuditableBehavior extends Behavior
 {
@@ -59,7 +62,7 @@ class AuditableBehavior extends Behavior
         foreach ($habtm as $index => $modelName) {
             $association = $this->_table->getAssociation($modelName);
 
-            if (!$association instanceof \Cake\ORM\Association\BelongsToMany) {
+            if (!$association instanceof BelongsToMany) {
                 continue;
             }
 
@@ -354,7 +357,7 @@ class AuditableBehavior extends Behavior
 
         foreach ($habtm as $habtmModel) {
             $association = $this->_table->getAssociation($habtmModel);
-            if (!($association instanceof \Cake\ORM\Association\BelongsToMany)) {
+            if (!($association instanceof BelongsToMany)) {
                 continue;
             }
             $name = Inflector::underscore($habtmModel);

@@ -7,12 +7,15 @@ use Cake\ORM\Table;
 /**
  * AuditDeltas Model
  *
- * @property \AuditLog\Model\Table\AuditsTable $Audits
+ * @package AuditLog\Model\Table
+ *
+ * @property \AuditLog\Model\Table\AuditsTable&\Cake\ORM\Association\BelongsTo $Audits
  *
  * @method \AuditLog\Model\Entity\AuditDelta get($primaryKey, $options = [])
  * @method \AuditLog\Model\Entity\AuditDelta newEntity($data = null, array $options = [])
  * @method \AuditLog\Model\Entity\AuditDelta[] newEntities(array $data, array $options = [])
- * @method \AuditLog\Model\Entity\AuditDelta|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \AuditLog\Model\Entity\AuditDelta|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \AuditLog\Model\Entity\AuditDelta saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \AuditLog\Model\Entity\AuditDelta patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \AuditLog\Model\Entity\AuditDelta[] patchEntities($entities, array $data, array $options = [])
  * @method \AuditLog\Model\Entity\AuditDelta findOrCreate($search, callable $callback = null, $options = [])

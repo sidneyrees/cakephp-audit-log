@@ -18,7 +18,6 @@ use Cake\ORM\Table;
  * @method \AuditLog\Model\Entity\AuditDelta findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\CounterCacheBehavior
- * @mixin \Search\Model\Behavior\SearchBehavior
  */
 class AuditDeltasTable extends Table
 {
@@ -48,46 +47,5 @@ class AuditDeltasTable extends Table
                 'delta_count',
             ],
         ]);
-
-        $this->addBehavior('Search.Search');
-
-        $this->searchManager()
-            ->add('source_id', 'Search.Value', [
-                'field' => 'Audits.source_id',
-                'model' => 'Audits',
-                'fields' => [
-                    'id' => 'source_id',
-                    'label' => 'source_id',
-                    'value' => 'source_id',
-                ],
-            ])
-            ->add('model', 'Search.Value', [
-                'field' => 'Audits.model',
-                'model' => 'Audits',
-                'fields' => [
-                    'id' => 'model',
-                    'label' => 'model',
-                    'value' => 'model',
-                ],
-            ])
-            ->add('entity_id', 'Search.Value', [
-                'field' => 'Audits.entity_id',
-                'model' => 'Audits',
-                'fields' => [
-                    'id' => 'entity_id',
-                    'label' => 'entity_id',
-                    'value' => 'entity_id',
-                ],
-            ])
-            ->add('property_name', 'Search.Value', [
-                'field' => 'id',
-            ])
-            ->add('old_value', 'Search.Value', [
-                'field' => 'id',
-            ])
-            ->add('new_value', 'Search.Value', [
-                'field' => 'id',
-            ]);
     }
-
 }

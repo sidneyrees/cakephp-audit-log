@@ -1,12 +1,12 @@
 <?php
+
 namespace AuditLog\Model\Behavior;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Locator\TableLocator;
-use Cake\ORM\TableRegistry;
-use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 
 /**
@@ -24,7 +24,7 @@ class AuditableBehavior extends Behavior
         'on' => ['delete', 'create', 'update'],
         'ignore' => ['created', 'updated', 'modified'],
         'habtm' => [],
-        'json_object' => true
+        'json_object' => true,
     ];
 
     /**
@@ -57,7 +57,6 @@ class AuditableBehavior extends Behavior
          */
 
         foreach ($habtm as $index => $modelName) {
-
             $association = $this->_table->getAssociation($modelName);
 
             if (!$association instanceof \Cake\ORM\Association\BelongsToMany) {
@@ -74,8 +73,8 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a save() operation.
      *
-     * @param  Event $event Event
-     * @param  Entity $entity Entity to save
+     * @param Event $event Event
+     * @param Entity $entity Entity to save
      *
      * @return null
      */
@@ -94,8 +93,8 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a delete() operation.
      *
-     * @param  Event $event Event
-     * @param  Entity $entity Entity to save
+     * @param Event $event Event
+     * @param Entity $entity Entity to save
      *
      * @return  null
      */
@@ -113,8 +112,8 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a save operation completes.
      *
-     * @param  Event $event Event
-     * @param  Entity $entity Entity to save
+     * @param Event $event Event
+     * @param Entity $entity Entity to save
      *
      * @return  void
      */
@@ -141,7 +140,7 @@ class AuditableBehavior extends Behavior
             'source_id' => $source['id'],
             'source_ip' => $source['ip'],
             'source_url' => $source['url'],
-            'description' => $source['description']
+            'description' => $source['description'],
         ];
 
         if (!empty($config['json_object'])) {
@@ -178,7 +177,7 @@ class AuditableBehavior extends Behavior
             $updates[] = [
                 'property_name' => $property,
                 'old_value' => $this->_original[$property],
-                'new_value' => $value
+                'new_value' => $value,
             ];
         }
 
@@ -189,7 +188,8 @@ class AuditableBehavior extends Behavior
             $audit = $Audits->save($audit);
             if (!$audit || !empty($audit->getErrors()) || empty($audit->id)) {
                 throw new \UnexpectedValueException(
-                    'Error saving audit ', print_r($audit, true)
+                    'Error saving audit ',
+                    print_r($audit, true)
                 );
             }
 
@@ -234,8 +234,8 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a model is deleted.
      *
-     * @param  Event $event Event
-     * @param  Entity $entity Entity to save
+     * @param Event $event Event
+     * @param Entity $entity Entity to save
      *
      * @return  null
      */
@@ -256,7 +256,7 @@ class AuditableBehavior extends Behavior
             'source_id' => $source['id'],
             'source_ip' => $source['ip'],
             'source_url' => $source['url'],
-            'description' => $source['description']
+            'description' => $source['description'],
         ];
 
         if ($config['json_object']) {
@@ -277,11 +277,12 @@ class AuditableBehavior extends Behavior
      *
      * @param string $event Event
      *
-     * @return boolean
+     * @return bool
      */
     protected function _shouldProcess($event)
     {
         $on = $this->getConfig('on');
+
         return in_array($event, $on);
     }
 
@@ -296,7 +297,7 @@ class AuditableBehavior extends Behavior
             'id' => null,
             'ip' => null,
             'url' => null,
-            'description' => null
+            'description' => null,
         ];
 
         if ($source = Configure::read('AuditSource')) {
@@ -368,7 +369,7 @@ class AuditableBehavior extends Behavior
             }
             $audit_data[$name] = $joinData;
         }
+
         return $audit_data;
     }
-
 }

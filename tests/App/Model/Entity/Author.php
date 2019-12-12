@@ -2,6 +2,8 @@
 
 namespace AuditLog\Test\App\Model\Entity;
 
-class Author extends \Cake\ORM\Entity
+use Cake\ORM\Entity;
+
+class Author extends Entity
 {
 }

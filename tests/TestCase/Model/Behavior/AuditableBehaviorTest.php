@@ -3,7 +3,6 @@
 namespace AuditLog\Test\TestCase\Model\Behavior;
 
 use Cake\ORM\Locator\TableLocator;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -17,12 +16,12 @@ class AuditableBehaviorTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.audit_log.audit_deltas',
-        'plugin.audit_log.audits',
-        'plugin.audit_log.authors',
-        'plugin.audit_log.articles',
-        'plugin.audit_log.tags',
-        'plugin.audit_log.articles_tags',
+        'plugin.AuditLog.AuditDeltas',
+        'plugin.AuditLog.Audits',
+        'plugin.AuditLog.Authors',
+        'plugin.AuditLog.Articles',
+        'plugin.AuditLog.Tags',
+        'plugin.AuditLog.ArticlesTags',
     ];
 
     /**
@@ -75,9 +74,6 @@ class AuditableBehaviorTest extends TestCase
 
     /**
      * Test the action of creating a new record.
-     *
-     * @todo  Test HABTM save
-     * @return void
      */
     public function testCreate()
     {
@@ -115,12 +111,12 @@ class AuditableBehaviorTest extends TestCase
             ],
         ])->toArray();
 
-        # Verify the audit record
+        // Verify the audit record
         $this->assertEquals(1, $article['user_id']);
         $this->assertEquals('First Test Article', $article['title']);
         $this->assertEquals('N', $article['published']);
 
-        #Verify that no delta record was created.
+        //Verify that no delta record was created.
         $this->assertTrue(empty($deltas));
     }
 
@@ -131,7 +127,7 @@ class AuditableBehaviorTest extends TestCase
      */
     public function testSaveAssociated()
     {
-        # TEST A MODEL AND A SINGLE ASSOCIATED MODEL
+        // TEST A MODEL AND A SINGLE ASSOCIATED MODEL
         $data = [
             'user_id' => 1,
             'title' => 'Rob\'s Test Article',
@@ -167,7 +163,7 @@ class AuditableBehaviorTest extends TestCase
         ])->firstOrFail()->toArray();
         $article = json_decode($article_audit['json_object'], true);
 
-        # Verify the audit record
+        // Verify the audit record
         $this->assertEquals(1, $article['user_id']);
         $this->assertEquals('Rob\'s Test Article', $article['title']);
         $this->assertEquals('Y', $article['published']);
@@ -187,7 +183,7 @@ class AuditableBehaviorTest extends TestCase
             ],
         ], $article['tags']);
 
-        # Verify that no delta record was created.
+        // Verify that no delta record was created.
 
         $this->assertTrue(empty($article_audit['audit_deltas']));
 
@@ -202,13 +198,12 @@ class AuditableBehaviorTest extends TestCase
 
         $author = json_decode($author_audit['json_object'], true);
 
-        # Verify the audit record
+        // Verify the audit record
         $this->assertEquals($article['author_id'], $author['id']);
         $this->assertEquals('Rob', $author['first_name']);
 
-        # Verify that no delta record was created.
+        // Verify that no delta record was created.
         $this->assertTrue(empty($author_audit['audit_deltas']));
-
     }
 
     /**
@@ -218,8 +213,7 @@ class AuditableBehaviorTest extends TestCase
      */
     public function testSaveMultiple()
     {
-
-        # TEST MULTIPLE RECORDS OF ONE MODEL
+        // TEST MULTIPLE RECORDS OF ONE MODEL
 
         $data = [
             [
@@ -252,7 +246,7 @@ class AuditableBehaviorTest extends TestCase
         }
 
         $tableLocator = new TableLocator();
-        # Retrieve the audits for the last 3 articles saved
+        // Retrieve the audits for the last 3 articles saved
         $audits = $tableLocator->get('AuditLog.Audits')->find('all', [
             'conditions' => [
                 'Audits.event' => 'CREATE',
@@ -269,7 +263,7 @@ class AuditableBehaviorTest extends TestCase
         $article_2 = json_decode($audits[1]['json_object'], true);
         $article_3 = json_decode($audits[0]['json_object'], true);
 
-        # Verify the audit records
+        // Verify the audit records
         $this->assertEquals(1, $article_1['user_id']);
         $this->assertEquals('Multiple Save 1 Title', $article_1['title']);
         $this->assertEquals('Y', $article_1['published']);
@@ -282,7 +276,7 @@ class AuditableBehaviorTest extends TestCase
         $this->assertEquals('Multiple Save 3 Title', $article_3['title']);
         $this->assertEquals('Y', $article_3['published']);
 
-        # Verify that no delta records were created.
+        // Verify that no delta records were created.
         $this->assertTrue(empty($audits[0]['audit_deltas']));
         $this->assertTrue(empty($audits[1]['audit_deltas']));
         $this->assertTrue(empty($audits[2]['audit_deltas']));
@@ -291,9 +285,9 @@ class AuditableBehaviorTest extends TestCase
     /**
      * Test editing an existing record.
      *
-     * @todo  Test change to ignored field
-     * @todo  Test HABTM save
      * @return void
+     * @todo  Test HABTM save
+     * @todo  Test change to ignored field
      */
     public function testEdit()
     {
@@ -310,7 +304,7 @@ class AuditableBehaviorTest extends TestCase
             'published' => 'N',
         ]);
 
-        # TEST SAVE WITH SINGLE PROPERTY UPDATE
+        // TEST SAVE WITH SINGLE PROPERTY UPDATE
 
         $result = $this->Articles->save($new_article);
         $this->assertNotEquals($result, false);
@@ -339,24 +333,24 @@ class AuditableBehaviorTest extends TestCase
             return $item->event;
         })->toArray();
 
-        # There should be 1 CREATE and 1 EDIT record
+        // There should be 1 CREATE and 1 EDIT record
         $this->assertEquals(2, $audit_records->count());
 
-        # There should be one audit record for each event.
+        // There should be one audit record for each event.
         $this->assertEquals(1, $count['CREATE']);
         $this->assertEquals(1, $count['EDIT']);
 
-        # Only one property was changed
+        // Only one property was changed
         $this->assertEquals(1, count($delta_records));
 
         $delta = array_shift($delta_records);
         $this->assertEquals('First Test Article', $delta['old_value']);
         $this->assertEquals('First Test Article (Edited)', $delta['new_value']);
 
-        # TEST UPDATE OF MULTIPLE PROPERTIES
-        # Pause to simulate a gap between edits
-        # This also allows us to retrieve the last edit for the next set
-        # of tests.
+        // TEST UPDATE OF MULTIPLE PROPERTIES
+        // Pause to simulate a gap between edits
+        // This also allows us to retrieve the last edit for the next set
+        // of tests.
         $anotherArticle = $this->Articles->newEntity([
             'user_id' => 1,
             'author_id' => 1,
@@ -410,7 +404,7 @@ class AuditableBehaviorTest extends TestCase
             ];
         }, $last_audit->audit_deltas);
 
-        # There are 4 changes, but one to an ignored field
+        // There are 4 changes, but one to an ignored field
         $expected = [
             [
                 'property_name' => 'body',
@@ -451,7 +445,7 @@ class AuditableBehaviorTest extends TestCase
             'published' => 'N',
         ]);
 
-        # TEST NO AUDIT RECORD IF ONLY CHANGE IS IGNORED FIELD
+        // TEST NO AUDIT RECORD IF ONLY CHANGE IS IGNORED FIELD
 
         $result = $this->Articles->save($new_article);
         $this->assertNotEquals($result, false);
@@ -486,7 +480,7 @@ class AuditableBehaviorTest extends TestCase
         $this->Audit = $tableLocator->get('AuditLog.Audits');
         $this->AuditDelta = $tableLocator->get('AuditLog.AuditDeltas');
         $article = $this->Articles->find('all', [
-            'order' => ['rand()'],
+            'order' => ['random()'],
         ])->first();
 
         $id = $article->id;

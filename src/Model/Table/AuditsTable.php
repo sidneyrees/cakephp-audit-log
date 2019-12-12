@@ -18,7 +18,6 @@ use Cake\ORM\Table;
  * @method \AuditLog\Model\Entity\Audit findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \Search\Model\Behavior\SearchBehavior
  */
 class AuditsTable extends Table
 {
@@ -43,34 +42,5 @@ class AuditsTable extends Table
             'foreignKey' => 'audit_id',
             'className' => 'AuditLog.AuditDeltas',
         ]);
-
-        $this->addBehavior('Search.Search');
-
-        $this->searchManager()
-            ->add('event', 'Search.Like', [
-                'before' => false,
-                'after' => false,
-                'fieldMode' => 'OR',
-                'comparison' => '=',
-                'wildcardAny' => '*',
-                'wildcardOne' => '?',
-                'field' => 'event',
-            ])
-            ->add('model', 'Search.Like', [
-                'before' => false,
-                'after' => false,
-                'fieldMode' => 'OR',
-                'comparison' => '=',
-                'wildcardAny' => '*',
-                'wildcardOne' => '?',
-                'field' => 'model',
-            ])
-            ->add('source_id', 'Search.Value', [
-                'field' => 'source_id',
-            ])
-            ->add('entity_id', 'Search.Value', [
-                'field' => 'entity_id',
-            ]);
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
+
 namespace AuditLog\Test\App\Model\Table;
 
-use AuditLog\Model\Entity\ArticlesTag;
 use Cake\ORM\Table;
 
 /**
@@ -24,12 +24,12 @@ class ArticlesTagsTable extends Table
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
             'joinType' => 'INNER',
-            'className' => 'AuditLog.Articles'
+            'className' => 'AuditLog.Articles',
         ]);
         $this->belongsTo('Tags', [
             'foreignKey' => 'tag_id',
             'joinType' => 'INNER',
-            'className' => 'AuditLog.Tags'
+            'className' => 'AuditLog.Tags',
         ]);
     }
 }

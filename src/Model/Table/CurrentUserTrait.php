@@ -29,5 +29,4 @@ trait CurrentUserTrait
             'description' => $session->read('Auth.User.username'),
         ];
     }
-
 }

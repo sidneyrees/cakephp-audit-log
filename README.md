@@ -1,10 +1,10 @@
 # Audit Log Plugin
 
-[![Build Status](https://travis-ci.org/hevertonfreitas/cakephp-audit-log.svg?branch=master)](https://travis-ci.org/hevertonfreitas/bulario)
-[![Latest Stable Version](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/v/stable)](https://packagist.org/packages/hevertonfreitas/bulario)
-[![Total Downloads](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/downloads)](https://packagist.org/packages/hevertonfreitas/bulario)
-[![Latest Unstable Version](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/v/unstable)](https://packagist.org/packages/hevertonfreitas/bulario)
-[![codecov](https://codecov.io/gh/hevertonfreitas/cakephp-audit-log/branch/master/graph/badge.svg)](https://codecov.io/gh/hevertonfreitas/bulario)
+[![Build Status](https://travis-ci.org/hevertonfreitas/cakephp-audit-log.svg?branch=master)](https://travis-ci.org/hevertonfreitas/cakephp-audit-log)
+[![Latest Stable Version](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/v/stable)](https://packagist.org/packages/hevertonfreitas/cakephp-audit-log)
+[![Total Downloads](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/downloads)](https://packagist.org/packages/hevertonfreitas/cakephp-audit-log)
+[![Latest Unstable Version](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/v/unstable)](https://packagist.org/packages/hevertonfreitas/cakephp-audit-log)
+[![codecov](https://codecov.io/gh/hevertonfreitas/cakephp-audit-log/branch/master/graph/badge.svg)](https://codecov.io/gh/hevertonfreitas/cakephp-audit-log)
 [![License](https://poser.pugx.org/hevertonfreitas/cakephp-audit-log/license)](http://opensource.org/licenses/MIT)
 
 A logging plugin for [CakePHP](https://cakephp.org). The included `AuditableBehavior`  creates an audit history for each instance of a model to which it's attached.

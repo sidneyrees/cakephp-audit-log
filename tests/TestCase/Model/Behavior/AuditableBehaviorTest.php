@@ -44,7 +44,7 @@ class AuditableBehaviorTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $tableLocator = new TableLocator();
 
@@ -66,7 +66,7 @@ class AuditableBehaviorTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Articles, $this->Authors, $this->Tags);
         parent::tearDown();

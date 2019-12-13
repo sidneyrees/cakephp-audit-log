@@ -1,12 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace AuditLog\Model\Behavior;
 
+use ArrayObject;
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
 use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Behavior;
-use Cake\ORM\Entity;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Utility\Inflector;
 
@@ -47,7 +49,7 @@ class AuditableBehavior extends Behavior
      * @param array $config The configuration settings provided to this behavior.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -76,12 +78,12 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a save() operation.
      *
-     * @param Event $event Event
-     * @param Entity $entity Entity to save
-     *
-     * @return null
+     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
+     * @param \ArrayObject $options the options passed to the save method
+     * @return void
      */
-    public function beforeSave(Event $event, Entity $entity)
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (!$this->_shouldProcess('create') && !$this->_shouldProcess('update')) {
             return;
@@ -96,12 +98,11 @@ class AuditableBehavior extends Behavior
     /**
      * Executed before a delete() operation.
      *
-     * @param Event $event Event
-     * @param Entity $entity Entity to save
-     *
-     * @return  null
+     * @param \Cake\Event\EventInterface $event The beforeDelete event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
+     * @return void
      */
-    public function beforeDelete(Event $event, Entity $entity)
+    public function beforeDelete(EventInterface $event, EntityInterface $entity): void
     {
         if (!$this->_shouldProcess('delete')) {
             return;
@@ -115,12 +116,12 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a save operation completes.
      *
-     * @param Event $event Event
-     * @param Entity $entity Entity to save
-     *
-     * @return  void
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
+     * @param \ArrayObject $options The options for the query
+     * @return void
      */
-    public function afterSave(Event $event, Entity $entity)
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if ($entity->isNew() && !$this->_shouldProcess('create')) {
             return;
@@ -237,12 +238,12 @@ class AuditableBehavior extends Behavior
     /**
      * Executed after a model is deleted.
      *
-     * @param Event $event Event
-     * @param Entity $entity Entity to save
-     *
-     * @return  null
+     * @param \Cake\Event\EventInterface $event The afterDelete event that was fired.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was deleted.
+     * @param \ArrayObject $options The options for the query
+     * @return void
      */
-    public function afterDelete(Event $event, Entity $entity)
+    public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (!$this->_shouldProcess('delete')) {
             return;
@@ -328,7 +329,7 @@ class AuditableBehavior extends Behavior
      *
      * @return  array
      */
-    protected function _getModelData(Entity $entity)
+    protected function _getModelData(EntityInterface $entity)
     {
         $habtm = $this->getConfig('habtm');
         $alias = $this->_table->getAlias();

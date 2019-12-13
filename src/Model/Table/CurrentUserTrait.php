@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AuditLog\Model\Table;
 
@@ -17,7 +18,7 @@ trait CurrentUserTrait
      *
      * @return array
      */
-    public function currentUser()
+    public function currentUser(): array
     {
         $request = ServerRequestFactory::fromGlobals();
         $session = $request->getSession();

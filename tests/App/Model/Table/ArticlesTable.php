@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AuditLog\Test\App\Model\Table;
 
@@ -12,7 +13,7 @@ class ArticlesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $this->belongsTo('Authors', [
             'foreignKey' => 'author_id',
@@ -31,7 +32,7 @@ class ArticlesTable extends Table
         ]);
     }
 
-    public function currentUser()
+    public function currentUser(): array
     {
         return [
             'id' => '15',

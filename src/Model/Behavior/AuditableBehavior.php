@@ -19,7 +19,6 @@ use Cake\Utility\Inflector;
  */
 class AuditableBehavior extends Behavior
 {
-
     /**
      * Default configuration.
      *
@@ -304,7 +303,8 @@ class AuditableBehavior extends Behavior
             'description' => null,
         ];
 
-        if ($source = Configure::read('AuditSource')) {
+        $source = Configure::read('AuditSource');
+        if ($source) {
             return $source + $defaults;
         }
 
@@ -327,6 +327,7 @@ class AuditableBehavior extends Behavior
      * Additionally, for the HABTM data, all we care about is the IDs,
      * so the data will be reduced to an indexed array of those IDs.
      *
+     * @param \Cake\Datasource\EntityInterface $entity The entity object
      * @return  array
      */
     protected function _getModelData(EntityInterface $entity)

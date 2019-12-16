@@ -10,7 +10,6 @@ use Cake\ORM\Entity;
  */
 class ArticlesTag extends Entity
 {
-
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

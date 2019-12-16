@@ -12,7 +12,6 @@ use Cake\Http\ServerRequestFactory;
  */
 trait CurrentUserTrait
 {
-
     /**
      * Returns data about the current logged user
      *

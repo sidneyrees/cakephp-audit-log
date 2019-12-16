@@ -10,7 +10,6 @@ use Cake\ORM\Table;
  */
 class TagsTable extends Table
 {
-
     /**
      * Initialize method
      *

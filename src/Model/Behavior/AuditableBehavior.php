@@ -24,7 +24,7 @@ class AuditableBehavior extends Behavior
      *
      * @var array
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'on' => ['delete', 'create', 'update'],
         'ignore' => ['created', 'updated', 'modified'],
         'habtm' => [],
@@ -60,15 +60,17 @@ class AuditableBehavior extends Behavior
          * any model which isn't a HABTM association.
          */
 
-        foreach ($habtm as $index => $modelName) {
-            $association = $this->_table->getAssociation($modelName);
+        if(!empty($habtm)) {
+            foreach ($habtm as $index => $modelName) {
+                $association = $this->_table->getAssociation($modelName);
 
-            if (!$association instanceof BelongsToMany) {
-                continue;
-            }
+                if (!$association instanceof BelongsToMany) {
+                    continue;
+                }
 
-            if ($this->_table->{$modelName}->hasBehavior('Auditable')) {
-                unset($habtm[$index]);
+                if ($this->_table->{$modelName}->hasBehavior('Auditable')) {
+                    unset($habtm[$index]);
+                }
             }
         }
         $this->setConfig('habtm', $habtm, false);
@@ -193,7 +195,7 @@ class AuditableBehavior extends Behavior
             if (!$audit || !empty($audit->getErrors()) || empty($audit->id)) {
                 throw new \UnexpectedValueException(
                     'Error saving audit ',
-                    print_r($audit, true)
+                    $audit->id ?? 0
                 );
             }
 

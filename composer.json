@@ -1,5 +1,5 @@
 {
-  "name": "hevertonfreitas/cakephp-audit-log",
+  "name": "sidneyrees/cakephp-audit-log",
   "description": "A logging plugin for CakePHP. It takes a snapshot of the fully hydrated object after a change is complete and it also records each individual change in the case of an update action",
   "type": "cakephp-plugin",
   "keywords": [
@@ -30,13 +30,9 @@
     "issues": "https://github.com/hevertonfreitas/cakephp-audit-log/issues"
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=8.1",
     "ext-json": "*",
-    "cakephp/cakephp": "^4.0"
-  },
-  "require-dev": {
-    "cakephp/cakephp-codesniffer": "^4.0",
-    "phpunit/phpunit": "^8.0"
+    "cakephp/cakephp": "^5.0"
   },
   "autoload": {
     "psr-4": {

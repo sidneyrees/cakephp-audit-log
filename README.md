@@ -13,7 +13,7 @@ The behavior tracks changes on two levels. It takes a snapshot of the fully hydr
 
 ## Features
 
-* Support for CakePHP 4.0
+* Support for CakePHP 5.0
 * Tracks object snapshots as well as individual property changes.
 * Allows each revision record to be attached to a source -- usually a user -- of responsibility for the change.
 * Allows developers to ignore changes to specified properties. Properties named `created`, `updated` and `modified` are ignored by default, but these values can be overwritten.
